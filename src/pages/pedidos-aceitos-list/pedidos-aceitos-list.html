@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-navbar color="navBar">
+        <button ion-button menuToggle>
+                    <ion-icon name="menu"></ion-icon>
+                </button>
+        <ion-title>
+            <span>Pedidos aceitos</span>
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefreshPedidosAceitos($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-list>
+        <button ion-item *ngFor="let pedido of pedidosList" text-wrap (click)="openDetalhePedido(pedido.idPedido)">
+              <p>Nro. Pedido: <strong style="color: green;">{{ pedido.numeroPedidoFormat }}</strong></p>
+              <p>Aberto em: {{ pedido.dataPedidoFormat }}</p>
+          </button>
+    </ion-list>
+
+</ion-content>

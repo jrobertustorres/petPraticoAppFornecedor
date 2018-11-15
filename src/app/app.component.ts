@@ -1,44 +1,135 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Constants } from '../app/constants';
+import { Network } from '@ionic-native/network';
+import { AppVersion } from '@ionic-native/app-version';
+import { Device } from '@ionic-native/device';
+import { Push, PushObject, PushOptions} from '@ionic-native/push';
 
+//PAGES
+import { MenuPage } from '../pages/menu/menu';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+// import { ListPage } from '../pages/list/list';
 
 @Component({
-  templateUrl: 'app.html'
+  template: '<ion-nav #baseNav></ion-nav>'
 })
 export class MyApp {
-  @ViewChild(Nav) nav: Nav;
+  @ViewChild('baseNav') nav: Nav;
+  rootPage:any;
 
-  rootPage: any = HomePage;
-
-  pages: Array<{title: string, component: any}>;
-
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform,
+              public statusBar: StatusBar,
+              private appVersion: AppVersion,
+              private device: Device,
+              private network: Network,
+              public push: Push,
+              public alertCtrl: AlertController,
+              public splashScreen: SplashScreen) {
     this.initializeApp();
 
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
-    ];
+  }
 
+  ngOnInit() {
+    this.nav.push(MenuPage, { animate: false });
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
+      this.platform.registerBackButtonAction(()=>this.myHandlerFunction());
+      this.checkNetwork();
+      if (this.platform.is('cordova')) {
+        localStorage.setItem(Constants.UUID, this.device.uuid);
+        this.appVersion.getVersionNumber().then((version) => {
+          localStorage.setItem(Constants.VERSION_NUMBER, version);
+        })
+      }
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      this.pushSetup();
+
+      // abaixo verificamos se a intenet cair depois que o cliente já entrou no app
+      this.network.onDisconnect().subscribe(() => {
+        let alertDisconect = this.alertCtrl.create({
+          title: "Conexão de internet!",
+          subTitle: "Você está offline. Verifique sua conexão com a internet!",
+          buttons: [{
+             text: 'Ok',
+             handler: () => {
+                 this.platform.exitApp();
+                }
+             }]
+           });
+           alertDisconect.present();
+      });
+
     });
   }
 
-  openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+  myHandlerFunction(){
+    //desabilitando o botão de voltar do android
   }
+
+  pushSetup() {
+    const options: PushOptions = {
+      android: {
+          senderID: '35361546932'
+      },
+      ios: {
+          alert: 'true',
+          badge: true,
+          sound: 'true'
+      },
+      windows: {}
+    };
+
+  const pushObject: PushObject = this.push.init(options);
+
+  pushObject.on('registration').subscribe((registration: any) => {
+    localStorage.setItem(Constants.TOKEN_PUSH, registration.registrationId);
+  });
+
+  pushObject.on('notification').subscribe((data: any) => {
+    if (data.additionalData.foreground) {
+      let confirmAlert = this.alertCtrl.create({
+        title: 'Nova notificação',
+        message: data.message,
+        buttons: [{
+          text: 'IGNORAR',
+          role: 'cancel'
+        }, {
+          text: 'ENTRAR ',
+          handler: () => {
+            this.nav.push(HomePage);
+          }
+        }]
+      });
+      confirmAlert.present();
+    } else {
+      this.nav.push(HomePage);
+    }
+  });
+
+    pushObject.on('error').subscribe(error => alert('Error with Push plugin' + error));
+  }
+
+  checkNetwork() {
+    if(this.network.type === 'none') {
+      let alert = this.alertCtrl.create({
+      title: "Conexão de internet!",
+      subTitle: "Você está offline. Verifique sua conexão com a internet!",
+      buttons: [{
+         text: 'Ok',
+         handler: () => {
+             this.platform.exitApp();
+            }
+         }]
+       });
+     alert.present();
+    }
+  }
+
 }

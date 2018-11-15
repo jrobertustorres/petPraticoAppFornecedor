@@ -1,0 +1,62 @@
+<ion-header>
+
+    <ion-navbar color="navBar">
+        <button ion-button menuToggle>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        <ion-title>
+            Configurações
+        </ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content class="content-stable">
+
+    <ion-card>
+        <ion-card-header style="background-color: #623592;">
+            <p class="h2-color-cards">
+                <strong>Minha área</strong>
+            </p>
+        </ion-card-header>
+
+        <ion-list>
+            <!-- <button ion-item class="border-top-color" (click)="meusDados()" style="background-color: #484848;">
+                    <ion-icon ios="ios-person" md="md-person" item-start color="light"></ion-icon>
+                    Meus dados
+                </button> -->
+
+            <button ion-item class="border-top-color" (click)="minhaSenha()" style="background-color: #623592;">
+                    <ion-icon ios="ios-lock" md="md-lock" item-start color="light"></ion-icon>
+                    Minha senha
+                </button>
+        </ion-list>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-header style="background-color: #623592;">
+            <p class="h2-color-cards">
+                <strong>Termos e condições</strong>
+            </p>
+        </ion-card-header>
+
+        <ion-list>
+            <button ion-item class="border-top-color" (click)="openModalTermos()" style="background-color: #623592;">
+                    <ion-icon ios="ios-list-box" md="md-list-box" item-start color="light"></ion-icon>
+                    Termos de uso
+                </button>
+
+            <button ion-item (click)="openModalPolitica()" style="background-color: #623592;">
+                    <ion-icon ios="ios-document" md="md-document" item-start color="light"></ion-icon>
+                    Política de privacidade
+                </button>
+        </ion-list>
+    </ion-card>
+
+    <div>
+        <p class="paragrafo-versao my-position-button">
+          Versão: {{ versaoApp }}
+        </p>
+    </div>
+
+</ion-content>

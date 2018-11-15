@@ -1,0 +1,108 @@
+<ion-header>
+
+    <ion-navbar color="navBar">
+        <ion-title><span style="font-size: 17px;">Detalhes do pedido</span></ion-title>
+        <button ion-button icon-only class="popover-style" (click)="presentPopover($event)" *ngIf="pedidoDetalheEntity.statusPedido == 'PENDENTE'" >
+            <ion-icon name="more"></ion-icon>
+        </button>
+        
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content text-wrap>
+    <div *ngIf="pedidoDetalheEntity.nomePessoa" style="margin-bottom: 70px;">
+
+        <ion-item>
+            <ion-avatar item-start>
+                <img src="assets/imgs/dog.png" style="height: 45px;">
+            </ion-avatar>
+            <h2 style="color: #000;"><b>Pedido {{ pedidoDetalheEntity.numeroPedidoFormat }}</b></h2>
+            <p><span style="font-size: 13px;">{{ pedidoDetalheEntity.dataPedidoFormat }}</span></p>
+        </ion-item>
+
+        <div padding>
+            
+            <p>
+                <span>Tipo pagamento </span><span style="float: right; text-transform: lowercase;">{{ pedidoDetalheEntity.tipoPagamento }}</span>
+            </p>
+            <div *ngIf="pedidoDetalheEntity.tipoPagamento == 'DINHEIRO'" >
+                <p *ngIf="pedidoDetalheEntity.trocoPara != '0.00'">
+                    <span>Troco para </span><span style="float: right; text-transform: lowercase;">{{ pedidoDetalheEntity.trocoPara }}</span>
+                </p>
+                <p *ngIf="pedidoDetalheEntity.trocoPara == '0.00'">
+                    <span >* Não necessita de troco</span>
+                </p>
+            </div>
+            
+            <p>
+                <span>Valor do pedido </span><span style="float: right;">{{ pedidoDetalheEntity.valorPedidoFormat }}</span>
+            </p>
+            <p>
+                <span>Valor do desconto </span><span style="float: right;">{{ pedidoDetalheEntity.valorDescontoFormat }}</span>
+            </p>
+            <p>
+                <span>% do desconto </span><span style="float: right;">{{ pedidoDetalheEntity.porcentagemDescontoFormat }}</span>
+            </p>
+            <p>
+                <span>Valor do frete </span>
+                <span style="float: right;" *ngIf="pedidoDetalheEntity.valorFreteFormat != '0,00'" >{{ pedidoDetalheEntity.valorFreteFormat }}</span>
+                <span style="float: right; color: green;" *ngIf="pedidoDetalheEntity.valorFreteFormat == '0,00'" ><b>Frete grátis</b></span>
+            </p>
+            <hr class="hr">
+
+            <p>
+            <b><span>Total: </span><span style="float: right;">R$ {{ pedidoDetalheEntity.valorTotalPedidoFormat }}</span></b>
+            </p>
+        </div>
+
+        <hr class="hr10">
+
+        <div style="padding-left: 16px;">
+            <p >
+                <b><span>Cliente</span></b>
+            </p>
+            <p>
+                <span>{{ pedidoDetalheEntity.nomePessoa }}</span>
+            </p>
+            <p>
+                <span>{{ pedidoDetalheEntity.endereco }}</span>
+            </p>
+            <p>
+                <a ion-button clear item-end href="tel:+34 32151515">
+                    <ion-chip class="ion-chip-style">
+                        <ion-icon ios="ios-call" md="md-call" class="icon-style-pedido"></ion-icon>
+                        <ion-label style="line-height: 2.3; color:#fff;"><b> {{ pedidoDetalheEntity.telefone }} </b></ion-label>
+                    </ion-chip>
+                </a>
+            </p>
+
+        </div>
+
+        <hr class="hr10">
+
+        <div>
+            <p style="padding-left: 16px;">
+                <b><span>Itens do pedido</span></b>
+            </p>
+                <p style="padding-left: 16px;" *ngFor="let list of listPedidoResposta">
+                    <span>{{ list.qtdItem }} </span>x<span style="margin-left: 7px;">{{ list.nomeProduto }}</span>
+                </p>
+        </div>
+
+    </div>
+
+</ion-content>
+
+<ion-footer *ngIf="pedidoDetalheEntity.nomePessoa && pedidoDetalheEntity.statusPedido == 'PENDENTE'" style="background-color: #fff;">
+    <ion-grid>
+        <ion-row>
+            <ion-col no-padding>
+                <button no-margin ion-button full icon-end color="button-save-color" (click)="confirmarPedidoConfirm(pedidoDetalheEntity.idPedido)">
+                    <span style="font-size: 12px;">ACEITAR PEDIDO</span>
+                    <ion-icon ios="ios-checkmark" md="md-checkmark"></ion-icon>
+                </button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer>
