@@ -93,13 +93,19 @@ export class MenuPage implements OnInit{
       this.usuarioEntity.idUsuario = idUsuario;
       this.loginService.loginByIdFornecedor(this.usuarioEntity)
         .then((usuarioEntityResult: UsuarioEntity) => {
-          this.rootPage = HomePage;
           this.loading.dismiss();
+          this.rootPage = HomePage;
 
       }, (err) => {
+        err.message = err.message ? err.message : 'Não foi possível conectar ao servidor';
         this.alertCtrl.create({
           subTitle: err.message,
-          buttons: ['OK']
+            buttons: [{
+              text: 'OK',
+              handler: () => {
+                this.logout();
+              }
+            }]
         }).present();
       });
     }
@@ -113,6 +119,15 @@ export class MenuPage implements OnInit{
   }
 
   logout() {
+    localStorage.removeItem(Constants.ID_USUARIO);
+    localStorage.removeItem(Constants.TOKEN_USUARIO);
+    localStorage.removeItem(Constants.TOKEN_PUSH);
+    localStorage.removeItem(Constants.NOME_PESSOA);
+    this.nav.setRoot(LoginPage);
+    this.menuCtrl.close();
+  }
+
+  confirmaLogout() {
     let alert = this.alertCtrl.create({
       subTitle: 'Deseja realmente sair?',
       buttons: [

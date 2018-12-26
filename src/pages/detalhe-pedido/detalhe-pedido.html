@@ -31,7 +31,7 @@
                     <span>Troco para </span><span style="float: right; text-transform: lowercase;">{{ pedidoDetalheEntity.trocoPara }}</span>
                 </p>
                 <p *ngIf="pedidoDetalheEntity.trocoPara == '0.00'">
-                    <span >* Não necessita de troco</span>
+                    <span>* Não necessita de troco</span>
                 </p>
             </div>
             
@@ -69,7 +69,7 @@
                 <span>{{ pedidoDetalheEntity.endereco }}</span>
             </p>
             <p>
-                <a ion-button clear item-end href="tel:+34 32151515">
+                <a ion-button clear item-end href="tel:+{{ pedidoDetalheEntity.telefone }}">
                     <ion-chip class="ion-chip-style">
                         <ion-icon ios="ios-call" md="md-call" class="icon-style-pedido"></ion-icon>
                         <ion-label style="line-height: 2.3; color:#fff;"><b> {{ pedidoDetalheEntity.telefone }} </b></ion-label>
