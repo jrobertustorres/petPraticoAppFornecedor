@@ -83,7 +83,6 @@ export class DetalhePedidoPage {
     this.pedidoService.findDetalhePedidoFornecedor(this.pedidoEntity)
       .then((pedidoDetalheEntityResult: PedidoDetalheEntity) => {
         this.pedidoDetalheEntity = pedidoDetalheEntityResult;
-        console.log(this.pedidoDetalheEntity);
 
         this.listPedidoResposta = this.pedidoDetalheEntity.listItemPedidoFornecedorEntity;
 

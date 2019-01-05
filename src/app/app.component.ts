@@ -76,7 +76,9 @@ export class MyApp {
   pushSetup() {
     const options: PushOptions = {
       android: {
-          senderID: '35361546932'
+          senderID: '1035662030940',
+          sound: 'true',
+          vibrate: true
       },
       ios: {
           alert: 'true',
@@ -95,7 +97,7 @@ export class MyApp {
   pushObject.on('notification').subscribe((data: any) => {
     if (data.additionalData.foreground) {
       let confirmAlert = this.alertCtrl.create({
-        title: 'Nova notificação',
+        title: 'Nova notificação PetPrático',
         message: data.message,
         buttons: [{
           text: 'IGNORAR',
@@ -103,13 +105,13 @@ export class MyApp {
         }, {
           text: 'ENTRAR ',
           handler: () => {
-            this.nav.push(HomePage);
+            this.nav.setRoot(HomePage);
           }
         }]
       });
       confirmAlert.present();
     } else {
-      this.nav.push(HomePage);
+      this.nav.setRoot(HomePage);
     }
   });
 
