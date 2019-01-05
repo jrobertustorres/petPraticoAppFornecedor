@@ -10,7 +10,7 @@ import { Push, PushObject, PushOptions} from '@ionic-native/push';
 
 //PAGES
 import { MenuPage } from '../pages/menu/menu';
-import { HomePage } from '../pages/home/home';
+// import { HomePage } from '../pages/home/home';
 // import { ListPage } from '../pages/list/list';
 
 @Component({
@@ -105,13 +105,13 @@ export class MyApp {
         }, {
           text: 'ENTRAR ',
           handler: () => {
-            this.nav.setRoot(HomePage);
+            // this.nav.setRoot(HomePage);
           }
         }]
       });
       confirmAlert.present();
     } else {
-      this.nav.setRoot(HomePage);
+      // this.nav.setRoot(HomePage);
     }
   });
 

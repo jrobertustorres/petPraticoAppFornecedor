@@ -24,7 +24,6 @@ export class LoginPage implements OnInit {
   public loginForm: FormGroup;
   private usuarioEntity: UsuarioEntity;
   private loading = null;
-  private loadingText: string;
 
   constructor(public navCtrl: NavController, 
               private loginService: LoginService, 
