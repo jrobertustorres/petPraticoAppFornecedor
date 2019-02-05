@@ -18,7 +18,7 @@ export class LoginService {
     this.usuarioEntity = new UsuarioEntity();
   }
 
-  public loginFornecedor(usuarioEntity) {
+  public loginFornecedor(usuarioEntity: any) {
     try {
       
       this.usuarioEntity = usuarioEntity;
@@ -50,7 +50,7 @@ export class LoginService {
     }
   }
 
-  public loginByIdFornecedor(usuarioEntity) {
+  public loginByIdFornecedor(usuarioEntity: any) {
     try {
       this.usuarioEntity = usuarioEntity;
       this.usuarioEntity.tokenPush = localStorage.getItem(Constants.TOKEN_PUSH);

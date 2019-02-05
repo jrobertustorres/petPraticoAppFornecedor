@@ -17,9 +17,18 @@
         <div *ngIf="(!loginForm.get('email').valid && loginForm.get('email').touched) && !loginForm.get('email').hasError('pattern')" [ngClass]="'class-error-form-login'">campo obrigatório</div>
         <div *ngIf="loginForm.get('email').hasError('pattern')" [ngClass]="'class-error-form-login'">e-mail inválido</div>
 
-        <ion-item style="background: #633492">
+        <!-- <ion-item style="background: #633492">
             <ion-label stacked color="arrow-color">Senha</ion-label>
             <ion-input formControlName="senha" type="password" placeholder="Digite sua senha"></ion-input>
+        </ion-item> -->
+        <ion-item style="background: #633492">
+            <ion-label stacked color="secondary-grey">Senha</ion-label>
+            <ion-input formControlName="senha" id="senha" type="text" *ngIf="showPwd" placeholder="Digite sua senha"></ion-input>
+            <ion-input formControlName="senha" id="senha" type="password" *ngIf="!showPwd" placeholder="Digite sua senha"></ion-input>
+            <button icon-only ion-button clear type="button" item-right color="dark" (click)="showPwd=!showPwd">
+                <ion-icon *ngIf="showPwd" name="eye"></ion-icon>
+                <ion-icon *ngIf="!showPwd" name="eye-off"></ion-icon>
+            </button>
         </ion-item>
         <div *ngIf="!loginForm.get('senha').valid && loginForm.get('senha').touched" [ngClass]="'class-error-form-login'">campo obrigatório</div>
 

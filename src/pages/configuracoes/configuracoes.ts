@@ -3,8 +3,6 @@ import { IonicPage, NavController, NavParams, LoadingController, ModalController
 import { Constants } from '../../app/constants';
 
 // PAGES
-import { ModalTermosPage } from '../modal-termos/modal-termos';
-import { ModalPoliticaPrivacidadePage } from '../modal-politica-privacidade/modal-politica-privacidade';
 import { MinhaSenhaPage } from './../minha-senha/minha-senha';
 
 @IonicPage()
@@ -31,13 +29,11 @@ export class ConfiguracoesPage implements OnInit {
   }
 
   openModalTermos(){
-    let modal = this.modalCtrl.create(ModalTermosPage);
-    modal.present();
+    window.open('http://www.petpratico.com.br/termos-de-uso.html', '_system', 'location=yes');
   }
 
   openModalPolitica(){
-    let modal = this.modalCtrl.create(ModalPoliticaPrivacidadePage);
-    modal.present();
+    window.open('http://www.petpratico.com.br/politica-de-privacidade.html', '_system', 'location=yes');
   }
 
   minhaSenha() {
