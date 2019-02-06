@@ -19,7 +19,7 @@ export class PedidosAceitosListPage {
   private loading = null;
   private pedidoListEntity: PedidoListEntity;
   private pedidosList: any;
-  private refresh: boolean = false
+  private refresh: boolean = false;
 
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
@@ -33,7 +33,7 @@ export class PedidosAceitosListPage {
     this.findUltimosPedidosConcluidosFornecedor();
   }
 
-  doRefreshPedidos(refresher) {
+  doRefreshPedidosAceitos(refresher: any) {
     this.findUltimosPedidosConcluidosFornecedor();
 
     setTimeout(() => {
@@ -58,7 +58,6 @@ export class PedidosAceitosListPage {
         this.loading ? this.loading.dismiss() : '';
       }, (err) => {
         this.loading ? this.loading.dismiss() : '';
-        // this.loading.dismiss();
         this.alertCtrl.create({
           subTitle: err.message,
           buttons: ['OK']

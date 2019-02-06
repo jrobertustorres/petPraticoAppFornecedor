@@ -18,7 +18,7 @@ export class HomePage {
   private loading = null;
   private pedidoListEntity: PedidoListEntity;
   private pedidosList: any;
-  private refresh: boolean = false
+  private refresh: boolean = false;
 
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
@@ -32,7 +32,7 @@ export class HomePage {
     this.findUltimosPedidosFornecedor();
   }
 
-  doRefreshPedidos(refresher) {
+  doRefreshPedidos(refresher: any) {
     this.findUltimosPedidosFornecedor();
 
     setTimeout(() => {
@@ -57,7 +57,6 @@ export class HomePage {
         this.loading ? this.loading.dismiss() : '';
       }, (err) => {
         this.loading ? this.loading.dismiss() : '';
-        // this.loading.dismiss();
         this.alertCtrl.create({
           subTitle: err.message,
           buttons: ['OK']
