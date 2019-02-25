@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, LoadingController, AlertController, Platform } from 'ionic-angular';
 
 //ENTITYS
 import { PedidoListEntity } from '../../model/pedido-list-entity';
@@ -24,13 +24,23 @@ export class PedidosAceitosListPage {
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
               private pedidoService: PedidoService,
+              public platform: Platform,
               public loadingCtrl: LoadingController) {
     this.pedidoListEntity = new PedidoListEntity();
+    this.platform.registerBackButtonAction(()=>this.myHandlerFunction());
 
   }
 
   ngOnInit() {
     this.findUltimosPedidosConcluidosFornecedor();
+  }
+
+  // se o loading estiver ativo, permite fechar o loading e voltar à tela anterior
+  myHandlerFunction(){
+    if(this.loading) {
+      this.loading.dismiss();
+      this.navCtrl.pop();
+    }
   }
 
   doRefreshPedidosAceitos(refresher: any) {

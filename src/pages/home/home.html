@@ -9,10 +9,16 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="content-stable">
     <ion-refresher (ionRefresh)="doRefreshPedidos($event)">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
+    <div class="h2-color-cards" text-wrap padding style="margin-top: 50px;" *ngIf="pedidosList?.length == 0">
+        <div style="text-align: center;color: #484848;"><strong>Não encontramos nenhum registro</strong></div>
+        <div style="text-align: center;">
+            <ion-icon style="font-size: 30px;color: #484848;" ios="ios-sad" md="md-sad"></ion-icon>
+        </div>
+    </div>
 
     <ion-list>
         <button ion-item *ngFor="let pedido of pedidosList" text-wrap (click)="openDetalhePedido(pedido.idPedido)">

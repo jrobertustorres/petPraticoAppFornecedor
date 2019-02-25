@@ -95,5 +95,6 @@
     <plugin name="phonegap-plugin-push" spec="~2.2.1">
         <variable name="SENDER_ID" value="1035662030940" />
     </plugin>
+    <plugin name="cordova-plugin-nativeaudio" spec="~3.0.9" />
     <engine name="android" spec="^7.1.4" />
 </widget>

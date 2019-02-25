@@ -7,6 +7,7 @@ import { Network } from '@ionic-native/network';
 import { Device } from '@ionic-native/device';
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import 'rxjs/add/operator/map';
+import { NativeAudio } from '@ionic-native/native-audio';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -84,6 +85,7 @@ import { PedidosAceitosListPage } from '../pages/pedidos-aceitos-list/pedidos-ac
     Device,
     Network,
     Push,
+    NativeAudio,
     UsuarioService,
     LoginService,
     PedidoService,

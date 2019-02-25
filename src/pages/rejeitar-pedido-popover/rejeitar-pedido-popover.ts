@@ -80,7 +80,7 @@ export class RejeitarPedidoPopoverPage {
       this.loading.present();
 
       this.pedidoEntity.idPedido = this.idPedido;
-      this.pedidoService.confirmarPedido(this.pedidoEntity)
+      this.pedidoService.rejeitaPedido(this.pedidoEntity)
       .then((pedidoEntityResult: PedidoEntity) => {
         this.dismiss('HomePage');
         this.loading.dismiss();

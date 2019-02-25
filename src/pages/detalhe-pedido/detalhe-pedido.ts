@@ -83,7 +83,6 @@ export class DetalhePedidoPage {
     this.pedidoService.findDetalhePedidoFornecedor(this.pedidoEntity)
       .then((pedidoDetalheEntityResult: PedidoDetalheEntity) => {
         this.pedidoDetalheEntity = pedidoDetalheEntityResult;
-
         this.listPedidoResposta = this.pedidoDetalheEntity.listItemPedidoFornecedorEntity;
 
         this.loading.dismiss();
@@ -103,7 +102,7 @@ export class DetalhePedidoPage {
     }
   }
 
-  confirmarPedidoConfirm(idPedido) {
+  confirmarPedidoConfirm(idPedido: number) {
     let confirm = this.alertCtrl.create({
       title: 'Iniciar separação de itens',
       message: 'Deseja realmente iniciar a separação dos itens?',
@@ -124,7 +123,7 @@ export class DetalhePedidoPage {
     confirm.present();
   }
 
-  confirmarPedido(idPedido) {
+  confirmarPedido(idPedido: number) {
     try {
       this.loading = this.loadingCtrl.create({
         content: 'Aguarde...',

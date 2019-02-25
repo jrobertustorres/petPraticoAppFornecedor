@@ -7,11 +7,11 @@ import { Network } from '@ionic-native/network';
 import { AppVersion } from '@ionic-native/app-version';
 import { Device } from '@ionic-native/device';
 import { Push, PushObject, PushOptions} from '@ionic-native/push';
+import { NativeAudio } from '@ionic-native/native-audio';
 
 //PAGES
 import { MenuPage } from '../pages/menu/menu';
-// import { HomePage } from '../pages/home/home';
-// import { ListPage } from '../pages/list/list';
+import { HomePage } from '../pages/home/home';
 
 @Component({
   template: '<ion-nav #baseNav></ion-nav>'
@@ -27,6 +27,7 @@ export class MyApp {
               private network: Network,
               public push: Push,
               public alertCtrl: AlertController,
+              private nativeAudio: NativeAudio,
               public splashScreen: SplashScreen) {
     this.initializeApp();
 
@@ -38,7 +39,11 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.platform.registerBackButtonAction(()=>this.myHandlerFunction());
+
+      this.nativeAudio.preloadSimple('audio1', 'assets/audio/beep.mp3').then((onSuccess) => {
+      }, (onError) => {
+      });
+
       this.checkNetwork();
       if (this.platform.is('cordova')) {
         localStorage.setItem(Constants.UUID, this.device.uuid);
@@ -69,10 +74,6 @@ export class MyApp {
     });
   }
 
-  myHandlerFunction(){
-    //desabilitando o botão de voltar do android
-  }
-
   pushSetup() {
     const options: PushOptions = {
       android: {
@@ -96,6 +97,9 @@ export class MyApp {
 
   pushObject.on('notification').subscribe((data: any) => {
     if (data.additionalData.foreground) {
+
+      this.nativeAudio.play('audio1', () => console.log('audio1 is done playing'));
+
       let confirmAlert = this.alertCtrl.create({
         title: 'Nova notificação PetPrático',
         message: data.message,
@@ -105,7 +109,7 @@ export class MyApp {
         }, {
           text: 'ENTRAR ',
           handler: () => {
-            // this.nav.setRoot(HomePage);
+            this.nav.setRoot(HomePage);
           }
         }]
       });

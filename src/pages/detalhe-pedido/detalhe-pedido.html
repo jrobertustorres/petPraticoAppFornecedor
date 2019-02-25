@@ -22,6 +22,8 @@
         </ion-item>
 
         <div padding>
+
+            <div text-wrap class="aviso-entrega" *ngIf="pedidoDetalheEntity.tipoEntregaFormat" ><span>{{ pedidoDetalheEntity.tipoEntregaFormat }}</span></div>
             
             <p>
                 <span>Tipo pagamento </span><span style="float: right; text-transform: lowercase;">{{ pedidoDetalheEntity.tipoPagamento }}</span>
@@ -85,9 +87,14 @@
             <p style="padding-left: 16px;">
                 <b><span>Itens do pedido</span></b>
             </p>
-                <p style="padding-left: 16px;" *ngFor="let list of listPedidoResposta">
+            <div *ngFor="let list of listPedidoResposta">
+                <p style="padding-left: 16px;">
                     <span>{{ list.qtdItem }} </span>x<span style="margin-left: 7px;">{{ list.nomeProduto }}</span>
                 </p>
+                <p style="padding-left: 16px;">
+                    <span>Unidade: {{ list.unidadeProduto }}</span>
+                </p>
+            </div>
         </div>
 
     </div>
