@@ -95,8 +95,9 @@ export class MenuPage implements OnInit{
         .then((usuarioEntityResult: UsuarioEntity) => {
           this.loading.dismiss();
           this.rootPage = HomePage;
-
-      }, (err) => {
+          
+        }, (err) => {
+        this.loading.dismiss();
         err.message = err.message ? err.message : 'Não foi possível conectar ao servidor';
         this.alertCtrl.create({
           subTitle: err.message,
@@ -142,7 +143,6 @@ export class MenuPage implements OnInit{
             localStorage.removeItem(Constants.TOKEN_USUARIO);
             localStorage.removeItem(Constants.TOKEN_PUSH);
             localStorage.removeItem(Constants.NOME_PESSOA);
-            // localStorage.removeItem(Constants.EMAIL_PESSOA);
             this.nav.setRoot(LoginPage);
             this.menuCtrl.close();
           }

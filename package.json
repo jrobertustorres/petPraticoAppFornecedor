@@ -61,6 +61,7 @@
       "phonegap-plugin-push": {
         "SENDER_ID": "1035662030940"
       },
+      "cordova-plugin-statusbar": {},
       "cordova-plugin-nativeaudio": {}
     },
     "platforms": [

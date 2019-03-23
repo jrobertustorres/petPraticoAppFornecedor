@@ -39,7 +39,6 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
-
       this.nativeAudio.preloadSimple('audio1', 'assets/audio/beep.mp3').then((onSuccess) => {
       }, (onError) => {
       });
@@ -97,25 +96,21 @@ export class MyApp {
 
   pushObject.on('notification').subscribe((data: any) => {
     if (data.additionalData.foreground) {
-
-      this.nativeAudio.play('audio1', () => console.log('audio1 is done playing'));
-
       let confirmAlert = this.alertCtrl.create({
         title: 'Nova notificação PetPrático',
         message: data.message,
-        buttons: [{
-          text: 'IGNORAR',
-          role: 'cancel'
-        }, {
-          text: 'ENTRAR ',
-          handler: () => {
-            this.nav.setRoot(HomePage);
-          }
-        }]
+        buttons: ['OK']
+        // buttons: [{
+        //   text: 'IGNORAR',
+        //   role: 'cancel'
+        // }, {
+        //   text: 'OK ',
+        //   handler: () => {
+        //   }
+        // }]
       });
       confirmAlert.present();
     } else {
-      // this.nav.setRoot(HomePage);
     }
   });
 
